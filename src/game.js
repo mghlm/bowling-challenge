@@ -17,6 +17,6 @@ var Game = function() {
   this.fifthFrameRoll2 = 0;
 };
 
-Game.prototype.firstRoll = function(points) {
-  (points === 10) ? (this.score = "X") : (this.score += points);
+Game.prototype.firstRoll = function(pins) {
+  (pins === 10) ? (this.score = 10) && (this.firstFrameRoll1 = "X") : (this.score += pins) && (this.firstFrameRoll1 += pins);
 };

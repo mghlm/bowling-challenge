@@ -10,16 +10,18 @@ describe ('Game', function() {
   });
 
   it('increase the score to the first number', function() {
-    game.firstRoll(7)
+    game.firstRoll(7);
     expect(game.score).toEqual(7);
+    expect(game.firstFrameRoll1).toEqual(7);
   });
 
   it('doesn\'t increase the score if the first roll is 10', function() {
-    game.firstRoll(10)
-    expect(game.score).toEqual("X");
+    game.firstRoll(10);
+    expect(game.score).toEqual(10);
+    expect(game.firstFrameRoll1).toEqual("X");
   });
 
-  it('')
+  
 
 
 
