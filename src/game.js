@@ -20,7 +20,7 @@ var Game = function() {
   this.fifthFrameRoll1 = 0;
   this.fifthFrameRoll2 = 0;
   this.totalFifthFrame = 0;
-};
+}
 
 Game.prototype.firstRoll = function(pins) {
   (pins === 10) ?
@@ -29,9 +29,12 @@ Game.prototype.firstRoll = function(pins) {
 };
 
 Game.prototype.secondRoll = function(pins) {
-  this.firstFrameRoll2 = pins;
-  this.totalFirstFrame = (this.firstFrameRoll1 + this.firstFrameRoll2);
-
-
-
+  if (this.firstFrameRoll1 === "X") {
+    return "No pins left";
+  } else if ((pins + this.firstFrameRoll1) === 10) {
+    (this.firstFrameRoll2 = '/') && (this.totalFirstFrame = '/');
+  } else {
+    this.firstFrameRoll2 = pins;
+    this.totalFirstFrame = (this.firstFrameRoll1 + this.firstFrameRoll2);
+  }
 };

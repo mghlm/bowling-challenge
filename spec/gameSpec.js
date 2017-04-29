@@ -22,6 +22,11 @@ describe ('Game', function() {
     expect(game.totalFirstFrame).toEqual("X");
   });
 
+  it('returns an error-message if user tries to run secondRoll when firstRoll was 10', function () {
+    game.firstRoll(10);
+    expect(game.secondRoll(2)).toEqual("No pins left");
+  });
+
   it('adds second rolls score to first rolls score if they combined are less than 10', function() {
     game.firstRoll(3);
     game.secondRoll(4);
@@ -29,6 +34,12 @@ describe ('Game', function() {
     expect(game.totalFirstFrame).toEqual(7);
   });
 
+  it('adds a / to the second roll box and total first frame if second and first roll is equal to 10', function() {
+    game.firstRoll(3);
+    game.secondRoll(7);
+    expect(game.firstFrameRoll2).toEqual('/');
+    expect(game.totalFirstFrame).toEqual('/');
+  });
 
 
 
