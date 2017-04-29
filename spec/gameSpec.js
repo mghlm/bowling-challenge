@@ -5,41 +5,71 @@ describe ('Game', function() {
     game = new Game();
   });
 
-  it('starts with a total score of 0', function() {
-    expect(game.totalScore).toEqual(0);
+  describe ('Total Score', function() {
+    it('is 0 at the beginning of a game', function() {
+      expect(game.totalScore).toEqual(0);
+    });
+    it('increases to the number of pins from first roll', function() {
+      game.firstRoll(7);
+      expect(game.totalScore).toEqual(7);
+      // expect(game.firstFrameRoll1).toEqual(7);
+    });
   });
 
-  it('increase the total score to the first number', function() {
-    game.firstRoll(7);
-    expect(game.totalScore).toEqual(7);
-    expect(game.firstFrameRoll1).toEqual(7);
+  describe ('Roll 1 score', function() {
+    it('increases to the number of pins from first roll', function() {
+      game.firstRoll(7);
+      expect(game.firstFrameRoll1).toEqual(7);
+    });
+    it ('is set to "X" if first roll is 10', function() {
+      game.firstRoll(10);
+      expect(game.firstFrameRoll1).toEqual("X");
+    });
   });
 
-  it('adds an X to the first roll box and total score for the frame if the first roll is 10', function() {
-    game.firstRoll(10);
-    expect(game.totalScore).toEqual(10);
-    expect(game.firstFrameRoll1).toEqual("X");
-    expect(game.totalFirstFrame).toEqual("X");
+  describe('Roll 2 score', function() {
+    it('is number of pins + score from roll 1 if they combined are less than 10', function() {
+      game.firstRoll(3);
+      game.secondRoll(4);
+      expect(game.firstFrameRoll2).toEqual(4);
+    });
+    it('is "/" if number of pins + score from roll 1 is equal to 10', function() {
+      game.firstRoll(3);
+      game.secondRoll(7);
+      expect(game.firstFrameRoll2).toEqual('/');
+    });
   });
 
-  it('returns an error-message if user tries to run secondRoll when firstRoll was 10', function () {
-    game.firstRoll(10);
-    expect(game.secondRoll(2)).toEqual("No pins left");
+  describe('Total frame score', function() {
+    it('is roll 1 score + roll 2 score, if they combined are less than 10', function() {
+      game.firstRoll(3);
+      game.secondRoll(4);
+      expect(game.totalFirstFrame).toEqual(7);
+    });
+    it('is "/" if roll 1 score + roll 2 score is 10', function() {
+      game.firstRoll(3);
+      game.secondRoll(7);
+      expect(game.totalFirstFrame).toEqual('/');
+    });
+    it('is "X" if roll 1 score is 10', function() {
+      game.firstRoll(10);
+      expect(game.totalFirstFrame).toEqual("X");
+    });
   });
 
-  it('adds second rolls score to first rolls score if they combined are less than 10', function() {
-    game.firstRoll(3);
-    game.secondRoll(4);
-    expect(game.firstFrameRoll2).toEqual(4);
-    expect(game.totalFirstFrame).toEqual(7);
+
+  describe('Second Roll', function() {
+    it('returns error-message if first roll was 10', function() {
+      game.firstRoll(10);
+      expect(game.secondRoll(2)).toEqual("No pins left");
+    });
+    it('returns error-message if number of pins + roll 1 score is more than 10', function() {
+      game.firstRoll(3);
+      expect(game.secondRoll(8)).toEqual("Error");
+    });
   });
 
-  it('adds a / to the second roll box and total first frame if second and first roll is equal to 10', function() {
-    game.firstRoll(3);
-    game.secondRoll(7);
-    expect(game.firstFrameRoll2).toEqual('/');
-    expect(game.totalFirstFrame).toEqual('/');
-  });
+
 
 
 

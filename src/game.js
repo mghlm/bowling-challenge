@@ -23,9 +23,11 @@ var Game = function() {
 }
 
 Game.prototype.firstRoll = function(pins) {
-  (pins === 10) ?
-  (this.totalScore = 10) && (this.firstFrameRoll1 = "X") && (this.totalFirstFrame = "X") :
-  (this.totalScore += pins) && (this.firstFrameRoll1 += pins);
+  if (pins === 10) {
+    (this.firstFrameRoll1 = "X") && (this.totalFirstFrame = "X");
+  } else {
+    (this.totalScore += pins) && (this.firstFrameRoll1 += pins);
+  }
 };
 
 Game.prototype.secondRoll = function(pins) {
@@ -33,8 +35,9 @@ Game.prototype.secondRoll = function(pins) {
     return "No pins left";
   } else if ((pins + this.firstFrameRoll1) === 10) {
     (this.firstFrameRoll2 = '/') && (this.totalFirstFrame = '/');
+  } else if ((pins + this.firstFrameRoll1) > 10) {
+    return "Error";
   } else {
-    this.firstFrameRoll2 = pins;
-    this.totalFirstFrame = (this.firstFrameRoll1 + this.firstFrameRoll2);
+    (this.firstFrameRoll2 = pins) && (this.totalFirstFrame = (this.firstFrameRoll1 + this.firstFrameRoll2));
   }
 };
