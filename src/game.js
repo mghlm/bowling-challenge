@@ -1,43 +1,35 @@
 var Game = function() {
   this.totalScore = 0;
 
-  this.firstFrameRoll1 = 0;
-  this.firstFrameRoll2 = 0;
+  this.firstRollScore = 0;
+  this.secondRollScore = 0;
   this.totalFirstFrame = 0;
-
-  this.secondFrameRoll1 = 0;
-  this.secondFrameRoll2 = 0;
-  this.totalSecondFrame = 0;
-
-  this.thirdFrameRoll1 = 0;
-  this.thirdFrameRoll2 = 0;
-  this.totalThirdFrame = 0;
-
-  this.fourthFrameRoll1 = 0;
-  this.fourthFrameRoll2 = 0;
-  this.totalFourthFrame = 0;
-
-  this.fifthFrameRoll1 = 0;
-  this.fifthFrameRoll2 = 0;
-  this.totalFifthFrame = 0;
-}
+};
 
 Game.prototype.firstRoll = function(pins) {
   if (pins === 10) {
-    (this.firstFrameRoll1 = "X") && (this.totalFirstFrame = "X");
+    (this.firstRollScore = "X") && (this.totalFirstFrame = "X");
   } else {
-    (this.totalScore += pins) && (this.firstFrameRoll1 += pins);
+    (this.totalScore += pins) && (this.firstRollScore += pins);
   }
 };
 
 Game.prototype.secondRoll = function(pins) {
-  if (this.firstFrameRoll1 === "X") {
+  if (this.firstRollScore === "X") {
     return "No pins left";
-  } else if ((pins + this.firstFrameRoll1) === 10) {
-    (this.firstFrameRoll2 = '/') && (this.totalFirstFrame = '/');
-  } else if ((pins + this.firstFrameRoll1) > 10) {
+  } else if ((pins + this.firstRollScore) === 10) {
+    (this.secondRollScore = '/') && (this.totalFirstFrame = '/');
+  } else if ((pins + this.firstRollScore) > 10) {
     return "Error";
   } else {
-    (this.firstFrameRoll2 = pins) && (this.totalFirstFrame = (this.firstFrameRoll1 + this.firstFrameRoll2));
+    (this.secondRollScore = pins) && (this.totalFirstFrame = (this.firstRollScore + this.secondRollScore)) && (this.totalScore += this.secondRollScore );
   }
 };
+
+// Game.prototype.strikeBonus = function(totalFrameScore) {
+//   return (totalFrameScore * 2);
+// };
+
+// Game.prototype.spareBonus = function(pins) {
+//   return (pins * 2);
+// };
